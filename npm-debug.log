@@ -1,0 +1,101 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/iojs', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@2.11.0
+3 info using node@v2.2.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec { raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/ryanseddon/Dropbox/Dev/Git/redux-debounce',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/ryanseddon/.npm/redux-debounce/0.1.0/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/ryanseddon/.npm/redux-debounce/0.1.0/package.tgz',
+9 verbose tar pack   '/Users/ryanseddon/Dropbox/Dev/Git/redux-debounce' ]
+10 verbose tarball /Users/ryanseddon/.npm/redux-debounce/0.1.0/package.tgz
+11 verbose folder /Users/ryanseddon/Dropbox/Dev/Git/redux-debounce
+12 info prepublish redux-debounce@0.1.0
+13 verbose unsafe-perm in lifecycle true
+14 verbose addLocalTarball adding from inside cache /Users/ryanseddon/.npm/redux-debounce/0.1.0/package.tgz
+15 silly cache afterAdd redux-debounce@0.1.0
+16 verbose afterAdd /Users/ryanseddon/.npm/redux-debounce/0.1.0/package/package.json not in flight; writing
+17 verbose afterAdd /Users/ryanseddon/.npm/redux-debounce/0.1.0/package/package.json written
+18 silly publish { name: 'redux-debounce',
+18 silly publish   version: '0.1.0',
+18 silly publish   description: 'Debounce middleware for Redux',
+18 silly publish   main: 'lib/index.js',
+18 silly publish   scripts:
+18 silly publish    { test: 'babel-istanbul cover _mocha && babel-istanbul check-coverage --branches 90',
+18 silly publish      build: 'rm -rf lib/ && babel -d lib/ src/',
+18 silly publish      prepublish: 'npm run build' },
+18 silly publish   repository:
+18 silly publish    { type: 'git',
+18 silly publish      url: 'git+https://github.com/ryanseddon/redux-debounce.git' },
+18 silly publish   author: { name: 'Ryan Seddon' },
+18 silly publish   license: 'MIT',
+18 silly publish   bugs: { url: 'https://github.com/ryanseddon/redux-debounce/issues' },
+18 silly publish   homepage: 'https://github.com/ryanseddon/redux-debounce#readme',
+18 silly publish   devDependencies:
+18 silly publish    { babel: '^5.8.23',
+18 silly publish      'babel-istanbul': '^0.3.20',
+18 silly publish      chai: '^3.3.0',
+18 silly publish      mocha: '^2.3.3',
+18 silly publish      redux: '^3.0.2',
+18 silly publish      sinon: '^1.17.1' },
+18 silly publish   readme: '[![Build Status](https://img.shields.io/travis/ryanseddon/redux-debounce/master.svg?style=flat-square)](http://travis-ci.org/ryanseddon/redux-debounce) [![npm](https://img.shields.io/npm/v/redux-debounce.svg?style=flat-square)](https://www.npmjs.com/package/redux-debounce)\n\n# redux-debounce\n\nDebounce middleware for [Redux](https://github.com/rackt/redux).\n\n## What\'s debounce?\n\nDebounce allows you to discard a fast paced action from updating your state until a certain period of time passes after the last action is fired.\n\nIf you have a search that happens when someone types in a text box you can use this middleware to only fire your action after the user has stopped for a specified period of time.\n\n```bash\n$ npm install --save redux-debounce\n```\n\n## Usage\n\nFirst, add some `debounce` metadata to your actions using the [Flux Standard Action](https://github.com/acdlite/flux-standard-action) pattern:\n\n```js\nconst action = {\n  type: \'MY_ACTION\',\n  meta: {\n    debounce: {\n      time: 300\n    }\n  }\n};\n```\n\nTo enable Redux Debounce:\n\n```js\nimport { createStore, applyMiddleware } from \'redux\';\nimport debounce from \'redux-debounce\';\nimport rootReducer from \'./reducers/index\';\n\n// create a store that has redux-thunk middleware enabled\nconst createStoreWithMiddleware = applyMiddleware(\n  debounce\n)(createStore);\n\nconst store = createStoreWithMiddleware(rootReducer);\n```\n\nYou can also specify your own key rather than using the action type this is useful if you\'re already using a promise middleware.\n\nSince promise middleware doesn\'t have a single type associated to it you can specify your own key for the middleware to keep track of your action being dispatched.\n\n```js\nconst action = {\n  types: [\'MY_ACTION_REQUEST\', \'MY_ACTION_SUCCESS\', \'MY_ACTION_FAILURE\'],\n  promise: () => {},\n  meta: {\n    debounce: {\n      time: 300,\n      key: \'myAction\'\n    }\n  }\n};\n```\n\n## License\n\n[MIT License](http://ryanseddon.mit-license.org/)\n',
+18 silly publish   readmeFilename: 'README.md',
+18 silly publish   gitHead: 'ed8d80760ca60e2bdacf8b8c1742b7d1c9684a9f',
+18 silly publish   _id: 'redux-debounce@0.1.0',
+18 silly publish   _shasum: 'd46ba96fae8b361edc26735a14762b9ffb3e92cc',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name redux-debounce
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/redux-debounce
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /Users/ryanseddon/.npm/redux-debounce/0.1.0/package.tgz
+26 verbose request uri https://registry.npmjs.org/redux-debounce
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 08:43:16
+29 verbose request id 2acb2ed335934430
+30 http request PUT https://registry.npmjs.org/redux-debounce
+31 http 403 https://registry.npmjs.org/redux-debounce
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=300',
+32 verbose headers   'content-length': '106',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Sun, 13 Dec 2015 19:43:17 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-akl6420-AKL',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1450035796.329803,VS0,VE1117' }
+33 verbose request invalidating /Users/ryanseddon/.npm/registry.npmjs.org/redux-debounce on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: You do not have permission to publish 'redux-debounce'. Are you logged in as the correct user? : redux-debounce
+35 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+35 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+35 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:368:22)
+35 verbose stack     at emitTwo (events.js:87:13)
+35 verbose stack     at Request.emit (events.js:172:7)
+35 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1219:14)
+35 verbose stack     at emitOne (events.js:82:20)
+35 verbose stack     at Request.emit (events.js:169:7)
+35 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1167:12)
+35 verbose stack     at emitNone (events.js:72:20)
+36 verbose statusCode 403
+37 verbose pkgid redux-debounce
+38 verbose cwd /Users/ryanseddon/Dropbox/Dev/Git/redux-debounce
+39 error Darwin 14.5.0
+40 error argv "/usr/local/bin/iojs" "/usr/local/bin/npm" "publish"
+41 error node v2.2.1
+42 error npm  v2.11.0
+43 error code E403
+44 error You do not have permission to publish 'redux-debounce'. Are you logged in as the correct user? : redux-debounce
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]
