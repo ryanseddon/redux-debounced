@@ -2,15 +2,14 @@ export let timers = {};
 
 export default () => dispatch => action => {
   const {
-    meta = {
-      debounce: {}
-    },
+    meta: { debounce={} }={},
     type
   } = action;
+
   const {
     time,
     key = type
-  } = meta.debounce;
+  } = debounce;
 
   if (!time || !key) {
     return dispatch(action);
