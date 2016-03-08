@@ -1,14 +1,16 @@
 import { assert } from 'chai';
 import { spy, useFakeTimers } from 'sinon';
 import { createStore, applyMiddleware } from 'redux';
-import debounce, { timers } from '../src';
+import createDebounce from '../src';
 
 describe('debounce middleware', () => {
   let store;
   let clock;
+  let timers;
 
   beforeEach(() => {
     let increment = 0;
+    const debounce = createDebounce();
     const createStoreWithMiddleware = applyMiddleware(debounce)(createStore);
     const initialState = {};
     const reducer = (state = initialState, action) => {
@@ -20,12 +22,12 @@ describe('debounce middleware', () => {
           };
         }
 
-      case 'UPDATE': {
-        return {
-          ...state,
-          increment: increment+1
+        case 'UPDATE': {
+          return {
+            ...state,
+            increment: increment+1
+          }
         }
-      }
 
         default: {
           return state;
@@ -34,6 +36,7 @@ describe('debounce middleware', () => {
     }
     store = createStoreWithMiddleware(reducer, initialState);
     clock = useFakeTimers();
+    timers = debounce._timers;
     spy(store, 'dispatch');
     spy(global, 'setTimeout');
   });
