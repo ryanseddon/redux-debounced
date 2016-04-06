@@ -33,12 +33,12 @@ To enable Redux Debounce:
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
-import debounce from 'redux-debounced';
+import createDebounce from 'redux-debounced';
 import rootReducer from './reducers/index';
 
 // create a store that has redux-thunk middleware enabled
 const createStoreWithMiddleware = applyMiddleware(
-  debounce
+  createDebounce()
 )(createStore);
 
 const store = createStoreWithMiddleware(rootReducer);
