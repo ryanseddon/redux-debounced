@@ -9,10 +9,13 @@ export default () => {
 
     const {
       time,
-      key = type
+      key = type,
+      cancel = false
     } = debounce;
 
-    if (!time || !key) {
+    const shouldDebounce = (time && key) || (cancel && key);
+
+    if (!shouldDebounce) {
       return dispatch(action);
     }
 
@@ -20,9 +23,11 @@ export default () => {
       clearTimeout(timers[key]);
     }
 
-    timers[key] = setTimeout(() => {
+    if (!cancel) {
+      timers[key] = setTimeout(() => {
       dispatch(action);
-    }, time);
+      }, time);
+    }
   };
 
   middleware._timers = timers;

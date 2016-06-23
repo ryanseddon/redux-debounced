@@ -61,6 +61,35 @@ const action = {
 };
 ```
 
+If you need to cancel a debounced action, you can set the `cancel` flag to true:
+
+```
+const action = {
+  type: 'MY_ACTION',
+  meta: {
+    debounce: {
+      cancel: true
+    }
+  }
+};
+
+// OR
+
+const otherAction = {
+  type: 'CANCEL_OTHER_ACTION',
+  meta: {
+    debounce: {
+      cancel: true,
+      key: 'MY_ACTION'
+    }
+  }
+}
+```
+
+This works in conjunction with the custom `key` metadata.  This can be useful if
+one action may need to cancel another debounced action (e.g., a debounced API
+call that does not need to run if another action comes in).
+
 ## License
 
 [MIT License](http://ryanseddon.mit-license.org/)
