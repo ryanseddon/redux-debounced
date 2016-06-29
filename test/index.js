@@ -153,6 +153,7 @@ describe('debounce middleware', () => {
         debounce: {time: 300}
       }
     };
+
     const actionCancel = {
       type: 'CANCEL_UPDATE',
       meta: {
@@ -162,6 +163,7 @@ describe('debounce middleware', () => {
         }
       }
     };
+
     beforeEach(() => {
       spy(global, 'clearTimeout');
       global.clearTimeout.reset();
@@ -170,12 +172,15 @@ describe('debounce middleware', () => {
       store.dispatch(action);
       store.dispatch(actionCancel);
     });
+
     it('setTimeout is called twice', () => {
       assert.ok(global.setTimeout.calledTwice);
     });
+
     it('clearTimeout is called three times', () => {
       assert.ok(global.clearTimeout.calledTwice);
     });
+
     it('state will not update', () => {
       clock.tick(300);
       assert.deepEqual(store.getState(), {});
