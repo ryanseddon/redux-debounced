@@ -145,4 +145,45 @@ describe('debounce middleware', () => {
       assert.deepEqual(store.getState(), {increment:1});
     });
   });
+
+  describe('debounced action can be cancelled', () => {
+    const action = {
+      type: 'UPDATE',
+      meta: {
+        debounce: {time: 300}
+      }
+    };
+
+    const actionCancel = {
+      type: 'CANCEL_UPDATE',
+      meta: {
+        debounce: {
+          key: 'UPDATE',
+          cancel: true
+        }
+      }
+    };
+
+    beforeEach(() => {
+      spy(global, 'clearTimeout');
+      global.clearTimeout.reset();
+      global.setTimeout.reset();
+      store.dispatch(action);
+      store.dispatch(action);
+      store.dispatch(actionCancel);
+    });
+
+    it('setTimeout is called twice', () => {
+      assert.ok(global.setTimeout.calledTwice);
+    });
+
+    it('clearTimeout is called three times', () => {
+      assert.ok(global.clearTimeout.calledTwice);
+    });
+
+    it('state will not update', () => {
+      clock.tick(300);
+      assert.deepEqual(store.getState(), {});
+    });
+  });
 });

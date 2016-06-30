@@ -61,6 +61,41 @@ const action = {
 };
 ```
 
+### Cancelling a Debounced Action (Advanced)
+
+If you need to cancel a debounced action, you can set the `cancel` flag to true:
+
+```
+const action = {
+  type: 'MY_ACTION',
+  meta: {
+    debounce: {
+      cancel: true
+    }
+  }
+};
+
+// OR
+
+const otherAction = {
+  type: 'CANCEL_OTHER_ACTION',
+  meta: {
+    debounce: {
+      cancel: true,
+      key: 'MY_ACTION'
+    }
+  }
+}
+```
+
+This works in conjunction with the custom `key` metadata.  This can be useful if
+one action may need to cancel another debounced action (e.g., a debounced API
+call that does not need to run if another action comes in).
+
+*Important* - A cancel action will terminate in the middleware without
+propagating further.  It will not show up DevTools or cause other side effects.
+So you cannot "piggyback" a cancel on another call at this time.
+
 ## License
 
 [MIT License](http://ryanseddon.mit-license.org/)
