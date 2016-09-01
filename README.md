@@ -61,6 +61,24 @@ const action = {
 };
 ```
 
+### Leading or trailing debouncing
+
+You can specify if the action should be dispatch on the leading and/or trailing edge of the debounce. This implementation is similar to the lodash `_.debounce()` method. By default, `leading = false` and `trailing = true`. If both values are set to `false`, the action will not be debounced.
+
+```js
+const action = {
+  type: 'MY_ACTION',
+  meta: {
+    debounce: {
+      time: 300,
+      // The action will be dispatched at the beginning of the debounce and not at the end
+      leading: true,
+      trailing: false
+    }
+  }
+};
+```
+
 ### Cancelling a Debounced Action (Advanced)
 
 If you need to cancel a debounced action, you can set the `cancel` flag to true:
