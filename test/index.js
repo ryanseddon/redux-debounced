@@ -25,7 +25,7 @@ describe('debounce middleware', () => {
         case 'UPDATE': {
           return {
             ...state,
-            increment: increment+1
+            increment: (state.increment || 0) + 1
           }
         }
 
@@ -181,7 +181,7 @@ describe('debounce middleware', () => {
       assert.ok(global.setTimeout.calledTwice);
     });
 
-    it('clearTimeout is called three times', () => {
+    it('clearTimeout is called twice', () => {
       assert.ok(global.clearTimeout.calledTwice);
     });
 
