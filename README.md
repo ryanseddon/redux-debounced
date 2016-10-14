@@ -36,7 +36,7 @@ import { createStore, applyMiddleware } from 'redux';
 import createDebounce from 'redux-debounced';
 import rootReducer from './reducers/index';
 
-// create a store that has redux-thunk middleware enabled
+// create a store that has redux-debounced middleware enabled
 const createStoreWithMiddleware = applyMiddleware(
   createDebounce()
 )(createStore);
