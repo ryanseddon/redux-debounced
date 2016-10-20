@@ -123,6 +123,8 @@ export function trackCustomerSearch(key) {
 }
 ```
 
+*Important* - A key must be specified as the thunk has no type.
+
 ## License
 
 [MIT License](http://ryanseddon.mit-license.org/)
