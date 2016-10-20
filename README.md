@@ -96,6 +96,33 @@ call that does not need to run if another action comes in).
 propagating further.  It will not show up DevTools or cause other side effects.
 So you cannot "piggyback" a cancel on another call at this time.
 
+### Debouncing a thunk
+If you want to use redux-debounced with redux-thunk add the meta object as a property to the thunk function and the debounced middleware should be applied before the thunk middleware.
+
+```javascript
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createDebounce from 'redux-debounced';
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(createDebounce(), thunk)
+);
+
+export function trackCustomerSearch(key) {
+  const thunk = dispatch => {
+    console.log('Search Key ----> ', key);
+  };
+  thunk.meta = {
+    debounce: {
+      time: 2500,
+      key: 'TRACK_CUSTOMER_SEARCH'
+    }
+  };
+  return thunk;
+}
+```
+
 ## License
 
 [MIT License](http://ryanseddon.mit-license.org/)
