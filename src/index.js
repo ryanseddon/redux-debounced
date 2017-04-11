@@ -24,9 +24,11 @@ export default () => {
     }
 
     if (!cancel) {
-      timers[key] = setTimeout(() => {
-      dispatch(action);
-      }, time);
+      return new Promise(resolve => {
+        timers[key] = setTimeout(() => {
+          resolve(dispatch(action));
+        }, time);
+      })
     }
   };
 

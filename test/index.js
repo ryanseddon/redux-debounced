@@ -44,13 +44,15 @@ describe('debounce middleware', () => {
   describe('debounced action is dispatched', () => {
     const timeout = 300;
 
-    beforeEach(() => store.dispatch({
-      type: 'SEARCH',
-      payload: 'foo',
-      meta: {
-        debounce: { time: timeout }
-      }
-    }));
+    beforeEach(() => {
+      store.dispatch({
+        type: 'SEARCH',
+        payload: 'foo',
+        meta: {
+          debounce: { time: timeout }
+        }
+      })
+    });
 
     it('dispatch is only called once', () => {
       assert.equal(store.dispatch.callCount, 1);
@@ -78,13 +80,15 @@ describe('debounce middleware', () => {
     const timeout = 300;
     const key = 'query';
 
-    beforeEach(() => store.dispatch({
-      type: 'SEARCH',
-      payload: 'foo',
-      meta: {
-        debounce: { time: timeout, key: key }
-      }
-    }));
+    beforeEach(() => {
+      store.dispatch({
+        type: 'SEARCH',
+        payload: 'foo',
+        meta: {
+          debounce: { time: timeout, key: key }
+        }
+      })
+    });
 
     it('timers object should contain item matching key', () => {
       assert.ok(timers.query);
@@ -184,6 +188,26 @@ describe('debounce middleware', () => {
     it('state will not update', () => {
       clock.tick(300);
       assert.deepEqual(store.getState(), {});
+    });
+  });
+
+  describe('using redux-thunk', () => {
+    const action = {
+      type: 'UPDATE',
+      meta: {
+        debounce: {time:300}
+      }
+    };
+
+    it('should work calling `then` on dispatch', done => {
+      store.dispatch(action)
+        .then(() => {
+          assert.deepEqual(store.getState(), {increment: 1});
+          done();
+        })
+        .catch(err => done(err));
+
+      clock.tick(300);
     });
   });
 });
