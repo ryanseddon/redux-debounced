@@ -111,14 +111,24 @@ describe("debounce middleware", () => {
     });
   });
 
-  describe("action is dispatched even has meta without debounce", () => {
-    beforeEach(() =>
-      store.dispatch({
-        type: "SEARCH",
-        payload: "foo",
-        meta: { other: "other" }
-      })
-    );
+  describe('null meta in action', () => {
+    beforeEach(() => store.dispatch({
+      type: 'SEARCH',
+      payload: 'foo',
+      meta: null
+    }));
+
+    it('action works fine still', () => {
+      assert.deepEqual(store.getState(), {query:'foo'});
+    });
+  });
+
+  describe('action is dispatched even has meta without debounce', () => {
+    beforeEach(() => store.dispatch({
+      type: 'SEARCH',
+      payload: 'foo',
+      meta: { other: 'other' }
+    }));
 
     it("state is updated straight away", () => {
       assert.deepEqual(store.getState(), { query: "foo" });
