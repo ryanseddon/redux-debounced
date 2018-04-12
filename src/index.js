@@ -1,5 +1,5 @@
 export default () => {
-  let timers = {};
+  const timers = {};
 
   const middleware = () => dispatch => action => {
     const { meta: { debounce = {} } = {}, type } = action;
@@ -16,13 +16,9 @@ export default () => {
       ((time && key) || (cancel && key)) && (trailing || leading);
     const dispatchNow = leading && !timers[key];
 
-    const later = () => {
+    const later = resolve => () => {
       if (trailing && !dispatchNow) {
-        return new Promise(resolve => {
-          timers[key] = setTimeout(() => {
-            resolve(dispatch(action));
-          }, time);
-        });
+        resolve(dispatch(action));
       }
       timers[key] = null;
     };
@@ -37,15 +33,12 @@ export default () => {
     }
 
     if (!cancel) {
-      if (dispatchNow) {
-        return new Promise(resolve => {
-          timers[key] = setTimeout(() => {
-            resolve(dispatch(action));
-          }, time);
-        });
-      }
-
-      timers[key] = setTimeout(later, time);
+      return new Promise(resolve => {
+        if (dispatchNow) {
+          resolve(dispatch(action));
+        }
+        timers[key] = setTimeout(later(resolve), time);
+      });
     }
   };
 
