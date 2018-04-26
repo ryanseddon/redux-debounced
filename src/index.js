@@ -2,7 +2,18 @@ export default () => {
   const timers = {};
 
   const middleware = () => dispatch => action => {
-    const { meta: { debounce = {} } = {}, type } = action;
+    const {
+      meta = {},
+      type,
+    } = action;
+
+    if (!meta) {
+      return dispatch(action);
+    }
+
+    const {
+      debounce = {},
+    } = meta
 
     const {
       time,
